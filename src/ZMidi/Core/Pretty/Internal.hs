@@ -1,9 +1,10 @@
+{-# LANGUAGE CPP                        #-}
 {-# OPTIONS -Wall #-}
 
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  ZMidi.Core.Pretty.Internal
--- Copyright   :  (c) Stephen Tetley 2013
+-- Copyright   :  (c) Stephen Tetley 2015
 -- License     :  BSD3
 --
 -- Maintainer  :  Stephen Tetley <stephen.tetley@gmail.com>
@@ -36,7 +37,9 @@ import ZMidi.Core.Internal.SimpleFormat
 
 
 import Data.Char
+#ifndef MIN_VERSION_GLASGOW_HASKELL
 import Data.Monoid
+#endif
 import Data.Word
 
 -- | Column specs for Header - Header is printed as simple 

@@ -3,7 +3,7 @@
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  ZMidi.Core.VersionNumber
--- Copyright   :  (c) Stephen Tetley 2010-2013
+-- Copyright   :  (c) Stephen Tetley 2010-2015
 -- License     :  BSD3
 --
 -- Maintainer  :  stephen.tetley@gmail.com
@@ -22,7 +22,7 @@ module ZMidi.Core.VersionNumber
 
 -- | Version number
 --
--- > (0,7,0)
+-- > (0,8,0)
 --
 zmidi_core_version :: (Int,Int,Int)
-zmidi_core_version = (0,7,0)
+zmidi_core_version = (0,8,0)

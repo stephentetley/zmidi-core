@@ -1,9 +1,10 @@
+{-# LANGUAGE CPP                        #-}
 {-# OPTIONS -Wall #-}
 
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  ZMidi.Core.Pretty.Ascii
--- Copyright   :  (c) Stephen Tetley 2013
+-- Copyright   :  (c) Stephen Tetley 2013-2015
 -- License     :  BSD3
 --
 -- Maintainer  :  Stephen Tetley <stephen.tetley@gmail.com>
@@ -29,7 +30,9 @@ import ZMidi.Core.Internal.SimpleFormat
 import ZMidi.Core.Pretty.Internal
 import ZMidi.Core.Pretty.Interp
 
+#ifndef MIN_VERSION_GLASGOW_HASKELL
 import Data.Monoid
+#endif
 import Data.Word
 
 

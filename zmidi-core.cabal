@@ -1,10 +1,10 @@
 name:             zmidi-core
-version:          0.7.0
+version:          0.8.0
 license:          BSD3
 license-file:     LICENSE
 copyright:        Stephen Tetley <stephen.tetley@gmail.com>
 maintainer:       Stephen Tetley <stephen.tetley@gmail.com>
-homepage:         http://code.google.com/p/copperbox/
+homepage:         https://github.com/stephentetley/zmidi-core
 category:         Music
 synopsis:         Read and write MIDI files.
 description:
@@ -13,6 +13,10 @@ description:
   dependencies only on ByteString, Containers and Data.Binary.
   .
   Changelog:
+  
+  v0.7.0 to v0.8.0:
+  .
+  * Updated to compile without errors with GHC 7.10.
   .
   v0.6.0 to v0.7.0:
   .

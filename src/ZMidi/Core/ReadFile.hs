@@ -1,9 +1,10 @@
+{-# LANGUAGE CPP                        #-}
 {-# OPTIONS -Wall #-}
 
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  ZMidi.Core.ReadFile
--- Copyright   :  (c) Stephen Tetley 2010-2013
+-- Copyright   :  (c) Stephen Tetley 2010-2015
 -- License     :  BSD3
 --
 -- Maintainer  :  Stephen Tetley <stephen.tetley@gmail.com>
@@ -44,7 +45,9 @@ import ZMidi.Core.Internal.ExtraTypes
 import ZMidi.Core.Internal.ParserMonad
 
 
+#ifndef MIN_VERSION_GLASGOW_HASKELL
 import Control.Applicative
+#endif
 import Control.Monad
 import Data.Bits
 import qualified Data.ByteString.Lazy   as L
@@ -107,7 +110,7 @@ event :: ParserM MidiEvent
 event = peek >>= step
   where
     -- 00..7f  -- /data/
-    step n 
+    step n
       | n == 0xFF  = MetaEvent         <$> (dropW8 *> (word8 >>= metaEvent))
       | n >= 0xF8  = SysRealTimeEvent  <$> (dropW8 *> sysRealTimeEvent n)
       | n == 0xF7  = SysExEvent        <$> (dropW8 *> sysExEscape)
@@ -142,7 +145,7 @@ voiceEvent (SB 0xC0 ch)  =
 voiceEvent (SB 0xD0 ch)  = 
     setRunningEvent (RS_CHAN_AFT ch)    >> chanAftertouch ch
 
-voiceEvent (SB 0xE0 ch)  = 
+voiceEvent (SB 0xE0 ch)  =
     setRunningEvent (RS_PCH_BEND ch)    >> pitchBend ch
 
 -- This is an /impossible/ match - to get here either @splitByte@ 
@@ -258,60 +261,60 @@ sysExContPackets =
 sysExEscape :: ParserM MidiSysExEvent
 sysExEscape = "sys-ex" <??> getVarlenBytes SysExEscape
 
--- | 0xFF and the "type" byte already parsed, input to this 
+-- | 0xFF and the "type" byte already parsed, input to this
 -- function is the type byte.
 --
--- Not all MetaEvents are enumerated - unrecognized ones are 
+-- Not all MetaEvents are enumerated - unrecognized ones are
 -- delegated to @MetaOther@.
 --
 metaEvent :: Word8 -> ParserM MidiMetaEvent
-metaEvent 0x00          = 
+metaEvent 0x00          =
     "sequence number"   <??> SequenceNumber <$> (assertWord8 2 *> word16be)
 
-metaEvent 0x01          = "generic text"      <??> textEvent GENERIC_TEXT 
-metaEvent 0x02          = "copyrightn notice" <??> textEvent COPYRIGHT_NOTICE
+metaEvent 0x01          = "generic text"      <??> textEvent GENERIC_TEXT
+metaEvent 0x02          = "copyright notice" <??> textEvent COPYRIGHT_NOTICE
 metaEvent 0x03          = "sequence name"     <??> textEvent SEQUENCE_NAME
 metaEvent 0x04          = "instrument name"   <??> textEvent INSTRUMENT_NAME
 metaEvent 0x05          = "lyrics"            <??> textEvent LYRICS
 metaEvent 0x06          = "marker"            <??> textEvent MARKER
 metaEvent 0x07          = "cue point"         <??> textEvent CUE_POINT
 
-metaEvent 0x20          = 
+metaEvent 0x20          =
     "channel prefix"    <??> ChannelPrefix <$> (assertWord8 0x01 *> word8)
 
-metaEvent 0x21          = 
+metaEvent 0x21          =
     "MIDI port"         <??> MidiPort <$> (assertWord8 0x01 *> word8)
 
-metaEvent 0x2F          = 
-    "end of track"      <??> EndOfTrack <$ assertWord8 0  
+metaEvent 0x2F          =
+    "end of track"      <??> EndOfTrack <$ assertWord8 0
 
-metaEvent 0x51          = 
+metaEvent 0x51          =
     "set tempo"         <??> SetTempo <$> (assertWord8 3     *> word24be)
 
-metaEvent 0x54          = 
-    "smpte offset"      <??> SMPTEOffset  <$> (assertWord8 5   *> word8) 
+metaEvent 0x54          =
+    "smpte offset"      <??> SMPTEOffset  <$> (assertWord8 5   *> word8)
                                           <*> word8           <*> word8
                                           <*> word8           <*> word8
 
-metaEvent 0x58          = 
+metaEvent 0x58          =
     "time signature"    <??> TimeSignature  <$> (assertWord8 4   *> word8)
-                                            <*> word8           <*> word8 
-                                            <*> word8 
+                                            <*> word8           <*> word8
+                                            <*> word8
 
-metaEvent 0x59          = 
-    "key signature"     <??> KeySignature   <$> (assertWord8 2   *> int8) 
+metaEvent 0x59          =
+    "key signature"     <??> KeySignature   <$> (assertWord8 2   *> int8)
                                             <*> scale
 
-metaEvent 0x7F          = 
+metaEvent 0x7F          =
     "system specific meta event" <??> getVarlenBytes SSME
 
-metaEvent ty            = 
+metaEvent ty            =
     "meta other"        <??> getVarlenBytes (MetaOther ty)
 
 
 
 
-                          
+
 fileFormat :: ParserM MidiFormat
 fileFormat = word16be >>= fn 
   where 

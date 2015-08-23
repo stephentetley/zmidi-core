@@ -36,7 +36,6 @@ import ZMidi.Core.Internal.SimpleFormat
 import ZMidi.Core.Pretty.Internal
 import ZMidi.Core.Pretty.Interp
 
-import Data.Monoid
 
 -- | Print the MIDI file to stdout.
 --

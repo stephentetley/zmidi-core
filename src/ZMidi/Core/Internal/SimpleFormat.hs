@@ -1,9 +1,10 @@
+{-# LANGUAGE CPP                        #-}
 {-# OPTIONS -Wall #-}
 
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  ZMidi.Core.Internal.SimpleFormat
--- Copyright   :  (c) Stephen Tetley 2010-2013
+-- Copyright   :  (c) Stephen Tetley 2010-2015
 -- License     :  BSD3
 --
 -- Maintainer  :  Stephen Tetley <stephen.tetley@gmail.com>
@@ -54,8 +55,12 @@ module ZMidi.Core.Internal.SimpleFormat
 
 
 
+#ifndef MIN_VERSION_GLASGOW_HASKELL
 import Control.Applicative
+#endif
+#ifndef MIN_VERSION_GLASGOW_HASKELL
 import Data.Monoid
+#endif
 import Data.Word
 import Numeric
 

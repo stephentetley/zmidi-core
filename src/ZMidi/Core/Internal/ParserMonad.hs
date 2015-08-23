@@ -1,9 +1,10 @@
+{-# LANGUAGE CPP                        #-}
 {-# OPTIONS -Wall #-}
 
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  ZMidi.Core.Internal.ParseMonad
--- Copyright   :  (c) Stephen Tetley 2010-2013
+-- Copyright   :  (c) Stephen Tetley 2010-2015
 -- License     :  BSD3
 --
 -- Maintainer  :  Stephen Tetley <stephen.tetley@gmail.com>
@@ -53,7 +54,9 @@ module ZMidi.Core.Internal.ParserMonad
   ) where
 
 
+#ifndef MIN_VERSION_GLASGOW_HASKELL
 import Control.Applicative
+#endif
 import Data.Bits
 import qualified Data.ByteString.Lazy as L
 import Data.Char
