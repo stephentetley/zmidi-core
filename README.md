@@ -1,5 +1,5 @@
-Oboe-Lang
-=========
+zmidi-core
+==========
 
 
 Minimalist Haskell library to read and write MIDI files, with 
