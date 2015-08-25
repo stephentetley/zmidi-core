@@ -22,7 +22,7 @@ module ZMidi.Core.VersionNumber
 
 -- | Version number
 --
--- > (0,8,0)
+-- > (0,8,1)
 --
 zmidi_core_version :: (Int,Int,Int)
-zmidi_core_version = (0,8,0)
+zmidi_core_version = (0,8,1)

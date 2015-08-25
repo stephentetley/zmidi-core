@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP                        #-}
 {-# OPTIONS -Wall #-}
 
 --------------------------------------------------------------------------------
@@ -36,6 +37,9 @@ import ZMidi.Core.Internal.SimpleFormat
 import ZMidi.Core.Pretty.Internal
 import ZMidi.Core.Pretty.Interp
 
+#ifndef MIN_VERSION_GLASGOW_HASKELL
+import Data.Monoid
+#endif
 
 -- | Print the MIDI file to stdout.
 --
