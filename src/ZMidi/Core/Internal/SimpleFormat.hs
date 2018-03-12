@@ -290,6 +290,10 @@ instance Monoid WString where
   mempty                                = WString 0 id
   WString w1 f1 `mappend` WString w2 f2 = WString (w1+w2) (f1 . f2)
 
+#if MIN_VERSION_base(4,11,0)
+instance Semigroup WString where
+    (<>) = mappend
+#endif
 
 
 infixr 6 <+>
@@ -358,4 +362,4 @@ int = wstring . show
 -- | Show an Integral value as a base 10 number.
 --
 integral :: (Show a, Integral a) => a -> WString
-integral = wstring . show 
+integral = wstring . show
