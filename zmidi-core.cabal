@@ -16,7 +16,7 @@ description:
   .
   v0.8.1 to v0.8.2:
   .
-  * Updated to compile with ghc-8.4.
+  * Updated to compile with ghc-8.4. Thanks to Evan Laforge.
   .
   v0.8.0 to v0.8.1:
   . 

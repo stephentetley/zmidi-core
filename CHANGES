@@ -1,4 +1,8 @@
 
+0.8.1 to 0.8.2:
+
+  * Updated to compile with ghc-8.4. Thanks to Evan Laforge.
+
 0.8.0 to 0.8.1:
 
   * Fixed error with missing CPP directive in ZMidi.Core.Pretty.

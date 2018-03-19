@@ -336,7 +336,7 @@ w24be a b c     = (shiftL `flip` 16  $ fromIntegral a)
                 + (shiftL `flip`  8  $ fromIntegral b) 
                 + fromIntegral c
 
--- | Build a Word16 (big endian).
+-- | Build a Word32 (big endian).
 --
 w32be :: Word8 -> Word8 -> Word8 -> Word8 -> Word32
 w32be a b c d   = (shiftL `flip` 24  $ fromIntegral a) 
