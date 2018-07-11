@@ -28,7 +28,6 @@ module ZMidi.Core
   , module ZMidi.Core.Pretty.Ascii
   , module ZMidi.Core.Pretty.Csv
   , module ZMidi.Core.ReadFile
-  , module ZMidi.Core.VersionNumber
   , module ZMidi.Core.WriteFile
       
   ) where
@@ -39,5 +38,4 @@ import ZMidi.Core.Pretty
 import ZMidi.Core.Pretty.Ascii
 import ZMidi.Core.Pretty.Csv
 import ZMidi.Core.ReadFile
-import ZMidi.Core.VersionNumber
 import ZMidi.Core.WriteFile

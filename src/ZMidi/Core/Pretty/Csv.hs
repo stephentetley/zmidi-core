@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP                   #-}
 {-# OPTIONS -Wall #-}
 
 --------------------------------------------------------------------------------
@@ -28,7 +29,9 @@ import ZMidi.Core.Internal.SimpleFormat
 import ZMidi.Core.Pretty.Internal
 
 
+#if !MIN_VERSION_base(4,8,0)
 import Data.Monoid
+#endif
 
 
 -- | Print the MIDI file to stdout (CSV format).
