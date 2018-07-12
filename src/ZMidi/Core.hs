@@ -3,7 +3,7 @@
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  ZMidi.Core
--- Copyright   :  (c) Stephen Tetley 2010-2013
+-- Copyright   :  (c) Stephen Tetley 2010-2018
 -- License     :  BSD3
 --
 -- Maintainer  :  Stephen Tetley <stephen.tetley@gmail.com>

@@ -4,7 +4,7 @@
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  ZMidi.Core.ReadFile
--- Copyright   :  (c) Stephen Tetley 2010-2015
+-- Copyright   :  (c) Stephen Tetley 2010-2018
 -- License     :  BSD3
 --
 -- Maintainer  :  Stephen Tetley <stephen.tetley@gmail.com>
@@ -180,7 +180,7 @@ chanAftertouch ch =
 
 pitchBend :: Word8 -> ParserM MidiVoiceEvent
 pitchBend ch = 
-    "pitch bend"        <??> (PitchBend ch)      <$> word16be
+    "pitch bend"        <??> (PitchBend ch)      <$> word14be
 
 
 
@@ -343,6 +343,9 @@ textEvent ty = getVarlenText (\_ ss -> TextEvent ty ss)
 
 --------------------------------------------------------------------------------
 -- helpers
+
+word14be :: ParserM Word16
+word14be = (\lsb msb -> toWord14BE (lsb,msb)) <$> word8 <*> word8
 
 
 impossibleMatch :: String -> ParserM a

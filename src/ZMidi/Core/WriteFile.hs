@@ -4,7 +4,7 @@
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  ZMidi.Core.WriteFile
--- Copyright   :  (c) Stephen Tetley 2010-2015
+-- Copyright   :  (c) Stephen Tetley 2010-2018
 -- License     :  BSD3
 --
 -- Maintainer  :  Stephen Tetley <stephen.tetley@gmail.com>
@@ -117,7 +117,8 @@ putVoiceEvent rs (ChanAftertouch c v)       =
     optTagByte rs (0xD `u4l4` c) *> putWord8 v  
 
 putVoiceEvent rs (PitchBend c v)            = 
-    optTagByte rs (0xE `u4l4` c) *> putWord16be v
+    let (lsb,msb) = fromWord14BE v in
+    optTagByte rs (0xE `u4l4` c) *> putWord8 lsb *> putWord8 msb
 
 
 -- Note - F7 (terminator) should be the last byte in the 

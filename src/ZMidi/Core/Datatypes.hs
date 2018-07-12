@@ -4,7 +4,7 @@
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  ZMidi.Core.Datatypes
--- Copyright   :  (c) Stephen Tetley 2010-2013
+-- Copyright   :  (c) Stephen Tetley 2010-2018
 -- License     :  BSD3
 --
 -- Maintainer  :  Stephen Tetley <stephen.tetley@gmail.com>
@@ -302,7 +302,8 @@ data MidiVoiceEvent
     -- Change the pitch of a sounding note. Often used to 
     -- approximate microtonal tunings.
     -- 
-    -- NOTE - currently value is uninterpreted.
+    -- NOTE - as of v0.9.0 the value is interpreted.
+    -- This is really a Word14 value (0..16383)
     --
     | PitchBend           Word8 Word16
 

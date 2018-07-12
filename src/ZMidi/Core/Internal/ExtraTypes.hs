@@ -3,7 +3,7 @@
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  ZMidi.Core.Internal.ExtraTypes
--- Copyright   :  (c) Stephen Tetley 2010-2013
+-- Copyright   :  (c) Stephen Tetley 2010-2018
 -- License     :  BSD3
 --
 -- Maintainer  :  Stephen Tetley <stephen.tetley@gmail.com>
@@ -18,8 +18,12 @@
 module ZMidi.Core.Internal.ExtraTypes
   (
 
+  -- * Pitch Bend
+    fromWord14BE
+  , toWord14BE
+    
   -- * SplitByte
-    SplitByte(..)
+  , SplitByte(..)
   , splitByte
   , joinByte
     
@@ -59,7 +63,25 @@ joinByte (SB a b) = (a .&. 0xF0) + (b .&. 0x0F)
 
 
 --------------------------------------------------------------------------------
--- helper for varlen
+-- Helper for Pitch Bend
+--------------------------------------------------------------------------------
+
+-- | min is 0, max is 16383
+-- (lsb, msb)
+fromWord14BE :: Word16 -> (Word8,Word8)
+fromWord14BE a = (lsb,msb)
+  where
+    lsb = fromIntegral (a .&. 0x007f)
+    msb = (.&. 0x7f) $ fromIntegral (a `shiftR` 7) 
+
+toWord14BE :: (Word8,Word8) -> Word16
+toWord14BE (lsb,msb) = msb' .|. lsb'
+  where
+    lsb' = fromIntegral lsb
+    msb' = (fromIntegral msb) `shiftL` 7
+
+--------------------------------------------------------------------------------
+-- Helper for varlen
 --------------------------------------------------------------------------------
 
 -- | Space efficient representation of length fields.

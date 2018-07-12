@@ -1,3 +1,10 @@
+ 0.8.2 to 0.9.0:
+  
+  * Improvements to handling pitch bend. Thanks to Joachim 
+    Tilsted Kristensen.
+
+  * Removed ZMidi.Core.VersionNumber file. This means we can 
+    have a vanilla Setup.hs file.
 
 0.8.1 to 0.8.2:
 
