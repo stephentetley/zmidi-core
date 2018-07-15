@@ -1,4 +1,4 @@
-{-# LANGUAGE CPP                        #-}
+    {-# LANGUAGE CPP                        #-}
 {-# OPTIONS -Wall #-}
 
 --------------------------------------------------------------------------------
@@ -239,7 +239,7 @@ valVoiceEvent (NoteOff c n v)         = hex2 c <+> hex2 n <+> hex2 v
 valVoiceEvent (NoteOn c n v)          = hex2 c <+> hex2 n <+> hex2 v
 valVoiceEvent (NoteAftertouch c n v)  = hex2 c <+> hex2 n <+> hex2 v
 valVoiceEvent (ChanAftertouch c v)    = hex2 c <+> hex2 v
-valVoiceEvent (PitchBend c v)         = hex2 c <+> hex4 v
+valVoiceEvent (PitchBend c v)         = hex2 c <+> hex4 (fromIntegral v)
 
 
 -- | Get formatted value.

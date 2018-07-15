@@ -26,8 +26,11 @@
 
 module ZMidi.Core.Datatypes 
   (
+
+  -- * A word14 type (for pitch bends)  
+    Word14
   -- * MidiFile syntax.
-    DeltaTime
+  , DeltaTime
   , TagByte
 
   , MidiFile(..)
@@ -51,9 +54,49 @@ module ZMidi.Core.Datatypes
     
   ) where
 
+import Data.Bits
 import Data.Int
 import Data.Word
 
+-------------------------------------------------------------------------------
+-- Word14
+-------------------------------------------------------------------------------
+
+-- | Midi represents pitch bend values as Word14 value
+-- (range 0 to 16383).
+--
+-- It seems useful to make a distinction between this type
+-- and Word16, even though it implemented as a Word16 under 
+-- the hood.
+--
+newtype Word14 = Word14 { getWord14 :: Word16 }
+  deriving (Enum,Eq,Ord,Integral,Real,Bits)
+
+-- | For addition, but especially multiplication, operate
+-- on integers rather than the underlying Word16 the we don't 
+-- get "eager" modulo operations.
+makeWord14 :: Integer -> Word14
+makeWord14 i = Word14 $ fromInteger $ i `mod` 16384
+
+extractWord14 :: Word14 -> Integer
+extractWord14 = fromIntegral . getWord14
+
+instance Bounded Word14 where
+  minBound = 0
+  maxBound = 16383
+
+instance Num Word14 where
+  a + b = makeWord14 $ extractWord14 a + extractWord14 b
+  a - b = makeWord14 $ extractWord14 a - extractWord14 b
+  a * b = makeWord14 $ extractWord14 a * extractWord14 b
+  abs a = Word14 $ abs (getWord14 a)
+  negate a = makeWord14 $ negate (extractWord14 a)
+  signum a = Word14 $ signum (getWord14 a)
+  fromInteger = makeWord14
+
+
+instance Show Word14 where
+  showsPrec p = showsPrec p . getWord14
 
 
 -- | All time values in a MIDI track are represented as a \delta\ 
@@ -303,9 +346,9 @@ data MidiVoiceEvent
     -- approximate microtonal tunings.
     -- 
     -- NOTE - as of v0.9.0 the value is interpreted.
-    -- This is really a Word14 value (0..16383)
+    -- This is a Word14 value, the range is (0..16383).
     --
-    | PitchBend           Word8 Word16
+    | PitchBend           Word8 Word14
 
 
   deriving (Eq,Ord,Show)

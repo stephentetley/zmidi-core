@@ -233,6 +233,16 @@ putMetaEvent (MetaOther ty len bs)             =
 --------------------------------------------------------------------------------
 -- Output helpers
 
+
+-- | Helper for Pitch Bend, min is 0, max is 16383
+-- (lsb, msb)
+fromWord14BE :: Word14 -> (Word8,Word8)
+fromWord14BE a = (lsb,msb)
+  where
+    lsb = fromIntegral (a .&. 0x007f)
+    msb = (.&. 0x7f) $ fromIntegral (a `shiftR` 7) 
+
+
 optTagByte :: MidiRunningStatus -> Word8 -> PutM ()
 optTagByte RS_OFF n = putWord8 n
 optTagByte _      _ = return ()

@@ -344,8 +344,15 @@ textEvent ty = getVarlenText (\_ ss -> TextEvent ty ss)
 --------------------------------------------------------------------------------
 -- helpers
 
-word14be :: ParserM Word16
+word14be :: ParserM Word14
 word14be = (\lsb msb -> toWord14BE (lsb,msb)) <$> word8 <*> word8
+
+
+toWord14BE :: (Word8,Word8) -> Word14
+toWord14BE (lsb,msb) = msb' .|. lsb'
+  where
+    lsb' = fromIntegral lsb
+    msb' = (fromIntegral msb) `shiftL` 7
 
 
 impossibleMatch :: String -> ParserM a

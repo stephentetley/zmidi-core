@@ -1,7 +1,10 @@
  0.8.2 to 0.9.0:
   
-  * Improvements to handling pitch bend. Thanks to Joachim 
-    Tilsted Kristensen.
+  * Improvements to handling pitch bend. The value of pitch 
+    bend is now represented as a Word14 and it is encoded
+    and decoded according to the MIDI spec (previously it
+    was left uninterpreted).
+    Thanks to Joachim Tilsted Kristensen.
 
   * Removed ZMidi.Core.VersionNumber file. This means we can 
     have a vanilla Setup.hs file.
